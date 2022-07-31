@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>商品列</h1>
+
+<ul>
+    {% for todo in todos %}
+    <li>
+        <a href="{%  url 'view' todo.id %}">
+            {% if todo.completed %}
+            <s>{{todo.title}}</s>
+            {% else %}
+            {{todo.title}}
+            {% endif %}
+            {% if todo.important %}(重要){% endif %}</a>
+        <a href="{% url 'delete' todo.id %}">刪除</a>
+    </li>
+
+    {% endfor %}
+</ul>
+
+{% endblock %}

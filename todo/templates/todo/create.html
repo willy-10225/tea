@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block content %}
+<h1>新增商品</h1>
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %} {{form.as_p}}
+    <button type="submit">新增</button>
+</form>
+<p id="message">{{message}}</p>
+{% endblock %}
