@@ -1,14 +1,11 @@
 from django.forms import ModelForm
 from .models import Todo
+from django import forms
 
 class TodoForm(ModelForm):
     class Meta:
         model = Todo
-        
         fields = ['title', 'text','price','capacity','photo', 'important', 'completed']
-        error_messages = {
-            'myfile': {
-                'invalid_image': '請上傳正確格式的圖片！'
-            }
-
+        widgets = {
+            'image': forms.FileInput(attrs={'class': 'form-control-file'})
         }

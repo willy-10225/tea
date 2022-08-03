@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from sqlalchemy import true
 
 # Create your models here.
 class Todo(models.Model):
@@ -9,7 +8,7 @@ class Todo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     price = models.CharField(max_length=100)
     capacity = models.CharField(max_length=100)
-    photo = models.ImageField( upload_to='./static/',blank=True,null=True)
+    photo = models.ImageField(upload_to='static/',blank=True,null=True)
     date_completed = models.DateTimeField(null=True, blank=True)
     completed = models.BooleanField(default=False)
     important = models.BooleanField(default=True)

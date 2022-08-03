@@ -17,10 +17,10 @@
 <body>
 
     <div class="hero">
-        <div class="hero is-warning">
-            <img src="../static/images/title1.png" class="hero-body" alt="qwe">
-            <img src="../static/images/title2.png" class="hero-body">
-        </div>
+        <form class="hero is-warning" action="" enctype="multipart/form-data" method="POST">
+            <img src="/media/static/title1.png" class="hero-body" alt="qwe">
+            <img src="/media/static/title2.png" class="hero-body">
+        </form>
 
         <div class="is-size-3 has-text-danger has-text-centered has-background-dark">
             我們的商品</div>
@@ -29,10 +29,10 @@
         <div class="box has-background-warning-light">
             {% for todo in todos %}
             {% if todo.completed %}
-            <div class="columns is-mobile">
+            <form class="columns is-mobile" action="" enctype="multipart/form-data" method="POST">
                 <div align="center" class="column is-two-fifth">
                     <figure class="box  has-background-success">
-                        <img width="320" height="320" src="{{todo.photo}}">
+                        <img width="320" height="320" src="{{ todo.photo.url }}">
                     </figure>
                 </div>
 
@@ -42,7 +42,7 @@
                     <span class="title is-5">商品說明</span><br>
                     <span class="subtitle is-6">{{todo.text}}</span>
                 </div>
-            </div>
+            </form>
             {% endif %}
             {% endfor %}
 
