@@ -1,23 +1,56 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block head %}
+<title>TodoList</title>
+{% endblock %} {% block content %}
 
-<h1>商品列</h1>
+<div class="hero is-link is-fullheight-with-navbar">
+  <div class="hero-body">
+    <div class="container">
+      {% if not todos %}
+      <h1 class="is-size-1">目前無列表</h1>
+      <form action="{% url 'create' %}">
+        <button class="button is-warning">新增</button>
+      </form>
+      {% else %} {% for todo in todos %}
 
-<ul>
-  {% for todo in todos %}
-  <li>
-    <a href="{%  url 'view' todo.id %}">
-      {% if todo.completed %}
-      <s>{{todo.title}}</s>
-      {% else %}
-      {{todo.title}}
-      {% endif %}
-      {% if todo.important %}(重要){% endif %}</a>
-
-    <a href="{% url 'delete' todo.id %}">刪除</a>
-    <a href="{% url 'completed_by_id' todo.id %}">完成</a>
-
-  </li>
-  {% endfor %}
-</ul>
+      <div class="columns is-centered">
+        <div class="column is-6">
+          <div class="card">
+            <header class="card-header">
+              {% if todo.important %}
+              <p class="card-header-title has-text-danger is-size-4">
+                {{ todo.title|truncatechars:20 }} {% if todo.completed%}
+                (完成){%endif %}
+              </p>
+              {% else %}
+              <p class="card-header-title has-text-info is-size-4">
+                {{todo.title|truncatechars:20}} {% if todo.completed %}
+                (完成){%endif %}
+              </p>
+              {% endif %}
+              <p class="has-text-right pr-3 py-3 has-text-grey">
+                <small>{{todo.created}}</small>
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                {{todo.text}}
+                <br />
+                <p class="has-text-gray-light has-text-right is-size-6">
+                  <small></small>
+                </p>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a href="{% url 'view' todo.id %}" class="card-footer-item">檢視</a>
+              <a href="{% url 'delete' todo.id %}" class="card-footer-item has-text-danger">刪除</a>
+              <a href="{% url 'completed_by_id' todo.id %}" class="card-footer-item has-text-primary">完成</a>
+            </footer>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+  </div>
+</div>
 
 {% endblock %}

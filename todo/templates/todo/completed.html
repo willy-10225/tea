@@ -1,21 +1,48 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block head %}
+<title>TodoList</title>
 
-<h1>商品列</h1>
+<style></style>
+{% endblock %} {% block content %}
 
-<ul>
-    {% for todo in todos %}
-    <li>
-        <a href="{%  url 'view' todo.id %}">
-            {% if todo.completed %}
-            <s>{{todo.title}}</s>
-            {% else %}
-            {{todo.title}}
-            {% endif %}
-            {% if todo.important %}(重要){% endif %}</a>
-        <a href="{% url 'delete' todo.id %}">刪除</a>
-    </li>
+<div class="hero is-link is-fullheight-with-navbar">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-multiline is-centered">
+        {% for todo in todos %}
+        <div class="column is-3">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title is-size-4">
+                {{ todo.title|truncatechars:15 }}<br />
+              </p>
 
-    {% endfor %}
-</ul>
+              <p class="has-text-right pr-3 py-3"></p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                <small class="has-text-grey">{{todo.created}}</small><br />
+                價格:{{todo.price}}/瓶({{todo.capacity}}ml) <br />
+                <p class="has-text-gray-light has-text-right is-size-6">
+                  <small></small>
+                </p>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a href="{% url 'view' todo.id %}" class="card-footer-item"
+                >檢視</a
+              >
+              <a
+                href="{% url 'delete' todo.id %}"
+                class="card-footer-item has-text-danger"
+                >刪除</a
+              >
+            </footer>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

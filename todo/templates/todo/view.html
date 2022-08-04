@@ -1,17 +1,72 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block head %}
+<title>View</title>
+{% endblock %}
 
-<h1>修改商品</h1>
+{% block content %}
+<div class="hero is-info is-fullheight-with-navbar">
+    <div class="hero-body">
+        <div class="container is-vcentered">
+            <div class="columns is-centered">
+                <div class="column is-6">
+                    <form action="" class="box" method="POST">
+                        {% csrf_token %}
+                        <div class="field">
+                            <label class="label has-text-centered is-size-3"> 商品名 </label>
+                            <label class="label has-text-right is-size-6 has-text-grey">
+                                {{date}}
+                            </label>
+                            <div class="control">
+                                <input type="text" class="input" name="title" value="{{ todo.title }}" />
+                            </div>
+                        </div>
+                        <label class="label has-text-left is-size-4"> 價格 </label>
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" class="input" name="price" value="{{ todo.price }}" />
+                            </div>
+                        </div>
+                        <label class="label has-text-left is-size-4"> 容量 </label>
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" class="input" name="capacity" value="{{ todo.capacity }}" />
+                            </div>
+                        </div>
+                        <label class="label has-text-left is-size-4"> 照片 </label>
+                        <div>
+                            照片跟改需要進入admin
+                        </div>
+                        <label class="label has-text-left is-size-4"> 介紹 </label>
+                        <div class="field">
+                            <div class="control">
+                                <textarea class="textarea" name="text">{{ todo.text }}</textarea>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <label class="label">
+                                    {% if todo.important %}
+                                    <input type="checkbox" class="checkbox" checked name="important"> 重要
+                                    {% else %}
+                                    <input type="checkbox" class="checkbox" name="important"> 重要
+                                    {% endif %}
+                                    {% if todo.completed %}
+                                    <input type="checkbox" class="checkbox" checked name="completed"> 完成
+                                    {% else %}
+                                    <input type="checkbox" class="checkbox" name="completed"> 完成
+                                    {% endif %}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="field has-text-centered">
+                            <input type="submit" name="update" class="button is-warning" value="更新"></button>
+                            <input type="submit" name="delete" class="button is-danger" value="刪除"></button>
+                        </div>
+                    </form>
+                </div>
 
-
-<form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %} {{form.as_p}}
-    {% if todo.date_completed %}
-    {{todo.date_completed}}<br>
-    {% endif %}
-    <input type="submit" name="update" value="修改"></button>
-    <input type="submit" name="delete" value="刪除"></button>
-</form>
-
-<p id="message">{{message}}</p>
-
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

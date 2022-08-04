@@ -1,16 +1,29 @@
-{% extends 'base.html' %} {% block content %}
-<h1>Profile</h1>
-
-<h2>{{user.username}}</h2>
-<ul>
-    <li>信箱:{{user.email}}</li>
-    <li>註冊時間:{{user.date_joined}}</li>
-    <li>最後登入時間:{{user.last_login}}</li>
-    {% if user.is_superuser %}
-    <li>管理者</li>
-    {% endif %} 
-</ul>
-
-
-
+{% extends 'base.html' %} {% block head %}
+<title>View</title>
+{% endblock %} {% block content %}
+<div class="hero is-info is-fullheight-with-navbar">
+  <div class="hero-body">
+    <div class="container is-vcentered">
+      <div class="columns is-centered">
+        <div class="column is-6 box">
+          <div class="field">
+            <label class="label has-text-centered is-size-3"> 個人資訊 </label>
+            <hr />
+            {% if user.is_authenticated %}
+            <div class="is-size-4 has-text-centered">
+              {{user.username|upper}}
+              <hr />
+              <div class="is-size-6 has-text-white has-background-black has-text-danger box">
+                <h2>信箱:{{user.email}}</h2>
+                <h2>加入日期:{{user.date_joined}}</h2>
+                <h2>最後登入日期:{{user.last_login}}</h2>
+              </div>
+            </div>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
