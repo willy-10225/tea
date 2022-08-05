@@ -11,7 +11,7 @@
         <div class="container is-vcentered">
             <div class="columns is-centered">
                 <div class="column is-6">
-                    <form action="" class="box" method="POST">
+                    <form action="" class="box" enctype="multipart/form-data" method="POST">
                         {% csrf_token %}
                         <div class="field">
                             <label class="label has-text-centered is-size-3"> 商品名 </label>
@@ -36,9 +36,9 @@
                         </div>
                         <label class="label has-text-left is-size-4"> 照片(只能選擇.png和.jpg檔案) </label>
                         <div class="field">
-                            <input type="file" id="file-uploader" accept=".jpg, .png" multiple>
+                            <input class="btn btn-primary" type="file" value="上傳" name="photo" />
                             <p>Upload files and see the output in browser console</p>
-                          </div>
+                        </div>
                         <label class="label has-text-left is-size-4"> 介紹 </label>
                         <div class="field">
                             <div class="control">

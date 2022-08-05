@@ -3,8 +3,11 @@ from .models import Todo
 from .forms import TodoForm
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+import os
+from todolist.settings import MEDIA_URL
 
 # Create your views here.
+
 
 
 
@@ -30,6 +33,7 @@ def completed_by_id(request, id):
 def delete(request, id):
     todo = get_object_or_404(Todo, id=id)
     todo.delete()
+    print(Todo.photo)
 
     return redirect('todo')
 
@@ -45,24 +49,17 @@ def completed(request):
 
 @login_required
 def create(request):
-    message = ''
     form = TodoForm()
 
     if request.method == 'POST':
-        message = '資料輸入錯誤'
-        try:
-            form = TodoForm(request.POST)
-            todo = form.save(commit=False)
-            todo.user = request.user
-            todo.save()
+        form = TodoForm(request.POST, request.FILES)
+        todo = form.save(commit=False)
+        todo.user = request.user
+        todo.save()
 
-            return redirect('todo')
+        return redirect('todo')
 
-        except Exception as e:
-            print(e)
-
-    return render(request, './todo/create.html', {'form': form, 'message': message})
-
+    return render(request, './todo/create.html', {"form": form,"date":datetime.now().strftime('%Y-%m-%d %H:%M:%S')})
 
 @login_required
 def view(request, id):
@@ -97,6 +94,5 @@ def todo(request):
     todos = None
     if request.user.is_authenticated:
         todos = Todo.objects.filter(user=request.user)
-        print(todos)
 
     return render(request, './todo/todo.html', {'todos': todos})
