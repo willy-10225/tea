@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 
 class Todo(models.Model):
-
     title = models.CharField(max_length=100)
     text = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -22,7 +21,13 @@ class Todo(models.Model):
         return f'{self.id}-{self.title}({self.user.username})'
     
 
-    
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+
+@receiver(pre_delete, sender=Todo)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.photo.delete(False)
 
 
 

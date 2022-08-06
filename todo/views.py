@@ -9,8 +9,6 @@ from todolist.settings import MEDIA_URL
 # Create your views here.
 
 
-
-
 def index(request):
     todos = Todo.objects.filter(completed=True)
     if request.user.is_authenticated:
@@ -33,8 +31,7 @@ def completed_by_id(request, id):
 def delete(request, id):
     todo = get_object_or_404(Todo, id=id)
     todo.delete()
-    print(Todo.photo)
-
+    
     return redirect('todo')
 
 
@@ -56,6 +53,7 @@ def create(request):
         todo = form.save(commit=False)
         todo.user = request.user
         todo.save()
+
 
         return redirect('todo')
 
