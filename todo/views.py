@@ -3,18 +3,24 @@ from .models import Todo
 from .forms import TodoForm
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
-import os
-from todolist.settings import MEDIA_URL
 
 # Create your views here.
 
 
-def index(request):
-    todos = Todo.objects.filter(completed=True)
-    if request.user.is_authenticated:
-        todos = Todo.objects.filter(user=request.user, completed=True)
-
-    return render(request, './todo/index.html',{'todos': todos})
+video_parameter = {
+        'text':
+        '''  一、 材料與用水比例
+（1）鮮品：水淹蓋過藥草材料為準。
+（2）乾品：一兩藥材約600-800cc水。
+二、煎煮藥材時間
+（1）鮮品：先以強火煮沸，蓋上鍋蓋，再以煨火煎煮約30分鐘，熄火浸泡 約10分鐘，濾除藥材及雜質，取茶湯待用。
+（2）乾品：先以強火煮沸，蓋上鍋蓋，再以煨火煎煮約60-80分鐘，熄火浸泡約10分鐘，濾除藥材及雜質，取茶湯待用。''',
+        'height': '100%',
+        'width': '361',
+        'src': '8223uFFnmvg',
+        "date": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    }
+video_parameter['textSplit']=video_parameter['text'].split('\n')
 
 @login_required
 def completed_by_id(request, id):
@@ -31,7 +37,7 @@ def completed_by_id(request, id):
 def delete(request, id):
     todo = get_object_or_404(Todo, id=id)
     todo.delete()
-    
+
     return redirect('todo')
 
 
@@ -39,7 +45,7 @@ def delete(request, id):
 def completed(request):
     todos = None
     if request.user.is_authenticated:
-        todos = Todo.objects.filter(user=request.user, completed=True)
+        todos = Todo.objects.all()
 
     return render(request, './todo/completed.html', {'todos': todos})
 
@@ -49,15 +55,29 @@ def create(request):
     form = TodoForm()
 
     if request.method == 'POST':
+
         form = TodoForm(request.POST, request.FILES)
         todo = form.save(commit=False)
         todo.user = request.user
         todo.save()
 
-
         return redirect('todo')
 
-    return render(request, './todo/create.html', {"form": form,"date":datetime.now().strftime('%Y-%m-%d %H:%M:%S')})
+    return render(request, './todo/create.html', {"form": form, "date": datetime.now().strftime('%Y-%m-%d %H:%M:%S')})
+
+
+@login_required
+def video(request):
+    if request.method == 'POST':
+        for i in [i for i in video_parameter.keys()][:-1]:
+            if request.POST.get(f'{i}') is not '':
+                video_parameter[f'{i}'] = request.POST.get(f'{i}')
+                video_parameter['textSplit']=video_parameter['text'].split('\n')
+    return render(request, './todo/video.html', video_parameter)
+
+@login_required
+def Resetvideo(request):
+    return render(request, './todo/video.html', video_parameter)
 
 @login_required
 def view(request, id):
@@ -89,8 +109,14 @@ def view(request, id):
 
 
 def todo(request):
-    todos = None
-    if request.user.is_authenticated:
-        todos = Todo.objects.filter(user=request.user)
+    todos = Todo.objects.all()
 
     return render(request, './todo/todo.html', {'todos': todos})
+
+def index(request):
+    global video_parameter
+    todos = Todo.objects.all()
+    IndexList={'todos': todos}
+    IndexList.update(video_parameter)
+
+    return render(request, './todo/index.html', IndexList)

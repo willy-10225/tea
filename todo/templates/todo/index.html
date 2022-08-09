@@ -49,21 +49,17 @@
         </div>
         <div class="columns is-vcentered is-justify-content-space-evenly p-8 has-background-dark m-4">
             <div class="column is-one-third m-2">
-                <iframe width="100%" height="361" src="https://www.youtube.com/embed/8223uFFnmvg"
+                <iframe width="{{width}}" height="{{height}}" src="https://www.youtube.com/embed/{{src}}"
                     title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
-
             </div>
             <div class="column is-one-third">
                 <p class="title is-1 is-spaced has-text-white">製作過程</p>
                 <p class="subtitle is-6 has-text-white">
-                    一、 材料與用水比例<br>
-                    （1）鮮品：水淹蓋過藥草材料為準。<br>
-                    （2）乾品：一兩藥材約600-800cc水。<br>
-                    二、煎煮藥材時間<br>
-                    （1）鮮品：先以強火煮沸，蓋上鍋蓋，再以煨火煎煮約30分鐘，熄火浸泡 約10分鐘，濾除藥材及雜質，取茶湯待用。<br>
-                    （2）乾品：先以強火煮沸，蓋上鍋蓋，再以煨火煎煮約60-80分鐘，熄火浸泡約10分鐘，濾除藥材及雜質，取茶湯待用。
+                    {% for t in textSplit %}
+                    {{t}}<br>
+                    {% endfor %}
                 </p>
             </div>
         </div>

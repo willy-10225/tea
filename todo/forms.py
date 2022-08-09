@@ -9,3 +9,4 @@ class TodoForm(ModelForm):
         widgets = {
             'image': forms.FileInput(attrs={'class': 'form-control-file'})
         }
+

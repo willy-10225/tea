@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% block head %}
+<title>video</title>
+<style>
+    input {
+        text-align: center;
+    }
+</style>
+{% endblock %} {% block content %}
+<div class="hero is-info is-fullheight-with-navbar">
+    <div class="hero-body">
+        <div class="container is-vcentered">
+            <div class="columns is-centered">
+                <div class="column is-6">
+                    <form action="" class="box" enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        <div class="field">
+                            <label class="label has-text-centered is-size-3"> 影片上傳 </label>
+                            <label class="label has-text-right is-size-6 has-text-grey">
+                                {{date}}
+                            </label>
+                        </div>
+                        <label class="label has-text-left is-size-4"> 說明 </label>
+                        <h3>請先上傳youtube在複製連結</h3>
+                        <label class="label has-text-left is-size-4"> 連結 </label>
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" class="input" name="src" placeholder="{{src}}" />
+                                <h3> 範例:https://www.youtube.com/watch?v=
+                                    <mark>CizpsiOQi4Q</mark>&t=27414s <br>
+                                    輸入:CizpsiOQi4Q
+                                </h3>
+                            </div>
+                        </div>
+                        <label class="label has-text-left is-size-4"> 影片寬 </label>
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" class="input" name="width" placeholder="{{width}}" />
+                            </div>
+                        </div>
+                        <label class="label has-text-left is-size-4"> 影片高 </label>
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" class="input" name="height" placeholder="{{height}}" />
+                            </div>
+                        </div>
+                        <label class="label has-text-left is-size-4"> 製作過程 </label>
+                        <div class="field">
+                            <div class="control">
+                                <textarea class="textarea" name="text" placeholder="{{text}}"></textarea>
+                            </div>
+                        </div>
+                        <div class="field has-text-centered">
+                            <button type="submit" class="button is-warning">檢測</button>
+                            <a href="{% url 'Resetvideo'  %}" class="button is-warning">還原</a>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="columns is-vcentered is-justify-content-space-evenly p-8 has-background-dark m-4">
+                    <div class="column ">
+                        <iframe width="{{width}}" height="{{height}}" src="https://www.youtube.com/embed/{{src}}"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+
+                    </div>
+                    <div class="column is-one-third">
+                        <p class="title is-1 is-spaced has-text-white">製作過程</p>
+                        <p class="subtitle is-6 has-text-white">
+                            {% for t in textSplit %}
+                            {{t}}<br>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

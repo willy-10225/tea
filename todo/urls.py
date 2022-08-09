@@ -18,13 +18,14 @@ from django.urls import path
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib import admin
 
 urlpatterns = [
     path('todo/', views.todo, name='todo'),
     path('',views.index,name='index'),
     path('todo/<int:id>', views.view, name='view'),
     path('create/', views.create, name='create'),
+    path('video/', views.video, name='video'),
+    path('Resetvideo/', views.Resetvideo, name='Resetvideo'),
     path('completed/', views.completed, name='completed'),
     path('delete/<int:id>', views.delete, name='delete'),
     path('completed/<int:id>', views.completed_by_id, name='completed_by_id'),
