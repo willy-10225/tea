@@ -1,3 +1,4 @@
+from email import message
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Todo
 from .forms import TodoForm
@@ -15,8 +16,8 @@ video_parameter = {
 二、煎煮藥材時間
 （1）鮮品：先以強火煮沸，蓋上鍋蓋，再以煨火煎煮約30分鐘，熄火浸泡 約10分鐘，濾除藥材及雜質，取茶湯待用。
 （2）乾品：先以強火煮沸，蓋上鍋蓋，再以煨火煎煮約60-80分鐘，熄火浸泡約10分鐘，濾除藥材及雜質，取茶湯待用。''',
-        'height': '100%',
-        'width': '361',
+        'height': '400px',
+        'width': '100%',
         'src': '8223uFFnmvg',
         "date": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
@@ -73,7 +74,9 @@ def video(request):
             if request.POST.get(f'{i}') is not '':
                 video_parameter[f'{i}'] = request.POST.get(f'{i}')
                 video_parameter['textSplit']=video_parameter['text'].split('\n')
+    video_parameter.update({'message':'影片上傳成功','color':'success'})
     return render(request, './todo/video.html', video_parameter)
+
 
 @login_required
 def Resetvideo(request):

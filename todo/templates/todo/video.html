@@ -56,25 +56,35 @@
 
                     </form>
                 </div>
-                <div class="columns is-vcentered is-justify-content-space-evenly p-8 has-background-dark m-4">
-                    <div class="column ">
-                        <iframe width="{{width}}" height="{{height}}" src="https://www.youtube.com/embed/{{src}}"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
 
-                    </div>
-                    <div class="column is-one-third">
-                        <p class="title is-1 is-spaced has-text-white">製作過程</p>
-                        <p class="subtitle is-6 has-text-white">
-                            {% for t in textSplit %}
-                            {{t}}<br>
-                            {% endfor %}
-                        </p>
+            </div>
+            <div class="columns">
+                <div class="notification is-dark has-text-centered">
+                    <div class="columns">
+
+                        <div class="column ">
+                            <iframe width="{{width}}" height="{{height}}" src="https://www.youtube.com/embed/{{src}}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+
+                        </div>
+                        <div class="column is-6 has-text-left">
+                            <p class="title is-1 is-spaced has-text-white">製作過程</p>
+                            <p class="subtitle is-6 has-text-white">
+                                {% for t in textSplit %}
+                                {{t}}<br>
+                                {% endfor %}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
+
     </div>
 </div>
+
+
 {% endblock %}
