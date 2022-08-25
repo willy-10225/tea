@@ -29,7 +29,7 @@ MEDIA_URL = ''
 SECRET_KEY = 'django-insecure-!mjdb((^i)e&%9xg8#)5oxjbtavkk!tml1u7mrls@7%3*nicr1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'todolist.urls'
@@ -129,11 +129,9 @@ USE_TZ = False
 
 # 设置图片等静态文件的路径
 
-STATIC_URL = '/static/'
+STATIC_URL = '/images/'
 
 STATIC_ROOT=''
-STATICFILES_STORAGE ='whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 MEDIA_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/static/"
 # Default primary key field type
